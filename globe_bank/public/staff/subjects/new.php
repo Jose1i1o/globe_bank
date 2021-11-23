@@ -27,7 +27,7 @@ if ($test == '404') {
         <form action="<?php echo url_for('/staff/subjects/create.php'); ?>" method="post">
             <dl>
                 <dt>Menu Name</dt>
-                <dd><input type="text" name="menu_name" value="<?php echo h($menu_name); ?>" /></dd>
+                <dd><input type="text" name="menu_name" value="" /></dd>
             </dl>
             <dl>
                 <dt>Position</dt>
