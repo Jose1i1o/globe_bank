@@ -107,3 +107,88 @@ function delete_subject($id)
         exit;
     }
 }
+
+function find_page_by_id($id)
+{
+    global $db;
+
+    $sql = "SELECT * FROM pages ";
+    $sql .= "WHERE id='" . $id . "';";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $page = mysqli_fetch_assoc($result); // TO AN ARRAY
+    mysqli_free_result($result); // FREE UP SPACE
+    return $page; // returns an associated array
+}
+
+function insert_page($page)
+{
+    global $db;
+
+    $sql = 'INSERT INTO pages ';
+    $sql .= '(subject_id, menu_name, position, visible, content) ';
+    $sql .= 'VALUES (';
+    $sql .= "'" . $page['subject_id'] . "',";
+    $sql .= "'" . $page['menu_name'] . "',";
+    $sql .= "'" . $page['position'] . "',";
+    $sql .= "'" . $page['visible'] . "',";
+    $sql .= "'" . $page['content'] . "'";
+    $sql .= ')';
+    $result = mysqli_query($db, $sql);
+    // For INSERT statements, $result is true/false
+    if ($result) {
+        return true;
+    } else {
+        // INSERT failed
+        echo mysqli_error($db);
+        db_disconnect($db);
+        exit;
+    }
+}
+
+function update_page($page)
+{
+    // $result = update_subject($subject);
+    global $db;
+
+    $sql = "UPDATE pages SET ";
+    $sql .= "subject_id ='" . $page['subject_id'] . "', ";
+    $sql .= "menu_name ='" . $page['menu_name'] . "', ";
+    $sql .= "position ='" . $page['position'] . "', ";
+    $sql .= "visible ='" . $page['visible'] . "', ";
+    $sql .= "content ='" . $page['content'] . "' ";
+    $sql .= "WHERE id ='" . $page['id'] . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+    // FOR UPDATE statements, $result is true or false
+    if ($result) {
+        return true;
+    } else {
+        // Update fails
+        echo mysqli_error($db);
+        db_disconnect($db);
+        exit;
+    }
+}
+
+function delete_page($id)
+{
+    global $db;
+
+    $sql = "DELETE FROM pages ";
+    $sql .= "WHERE id='" . $id . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    // FOR DELETE STATAEMENTS, $result is true or false
+    if ($result) {
+        return true;
+    } else {
+        // DELETE failed
+        echo mysqli_error($db);
+        db_disconnect($db);
+        exit;
+    }
+}
