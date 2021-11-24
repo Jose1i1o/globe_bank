@@ -2,7 +2,7 @@
 
 require_once('../../../private/initialize.php');
 
-if (is_post_request()) {
+if(is_post_request()) {
 
   $page = [];
   $page['subject_id'] = $_POST['subject_id'] ?? '';
@@ -12,9 +12,14 @@ if (is_post_request()) {
   $page['content'] = $_POST['content'] ?? '';
 
   $result = insert_page($page);
-  $new_id = mysqli_insert_id($db);
-  redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
-} else { // WHEN IS NOT A POST REQUEST
+  if($result === true) {
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
+  } else {
+    $errors = $result;
+  }
+
+} else {
 
   $page = [];
   $page['subject_id'] = '';
@@ -23,10 +28,11 @@ if (is_post_request()) {
   $page['visible'] = '';
   $page['content'] = '';
 
-  $page_set = find_all_pages(); // FIND PAGES AND HOW MANY THERE ARE
-  $page_count = mysqli_num_rows($page_set) + 1;
-  mysqli_free_result($page_set);
 }
+
+$page_set = find_all_pages();
+$page_count = mysqli_num_rows($page_set) + 1;
+mysqli_free_result($page_set);
 
 ?>
 
@@ -40,22 +46,24 @@ if (is_post_request()) {
   <div class="page new">
     <h1>Create Page</h1>
 
+    <?php echo display_errors($errors); ?>
+
     <form action="<?php echo url_for('/staff/pages/new.php'); ?>" method="post">
       <dl>
         <dt>Subject</dt>
         <dd>
           <select name="subject_id">
-            <?php
+          <?php
             $subject_set = find_all_subjects();
-            while ($subject = mysqli_fetch_assoc($subject_set)) {
+            while($subject = mysqli_fetch_assoc($subject_set)) {
               echo "<option value=\"" . h($subject['id']) . "\"";
-              if ($page["subject_id"] == $subject['id']) {
+              if($page["subject_id"] == $subject['id']) {
                 echo " selected";
               }
               echo ">" . h($subject['menu_name']) . "</option>";
             }
             mysqli_free_result($subject_set);
-            ?>
+          ?>
           </select>
         </dd>
       </dl>
@@ -68,13 +76,13 @@ if (is_post_request()) {
         <dd>
           <select name="position">
             <?php
-            for ($i = 1; $i <= $page_count; $i++) {
-              echo "<option value=\"{$i}\"";
-              if ($page["position"] == $i) {
-                echo " selected";
+              for($i=1; $i <= $page_count; $i++) {
+                echo "<option value=\"{$i}\"";
+                if($page["position"] == $i) {
+                  echo " selected";
+                }
+                echo ">{$i}</option>";
               }
-              echo ">{$i}</option>";
-            }
             ?>
           </select>
         </dd>
@@ -83,9 +91,7 @@ if (is_post_request()) {
         <dt>Visible</dt>
         <dd>
           <input type="hidden" name="visible" value="0" />
-          <input type="checkbox" name="visible" value="1" <?php if ($page['visible'] == "1") {
-                                                            echo " checked";
-                                                          } ?> />
+          <input type="checkbox" name="visible" value="1"<?php if($page['visible'] == "1") { echo " checked"; } ?> />
         </dd>
       </dl>
       <dl>
