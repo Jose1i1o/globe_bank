@@ -32,3 +32,9 @@ function confirm_result_set($result_set)
         exit("Database query failed.");
     }
 }
+
+// Code to prove injection on edit + subject >>>  http://localhost/blueprint/blueprint/globe_bank/public/staff/subjects/show.php?id=%27%20OR%20%27a%27=%27a
+function db_escape($connection, $string)
+{
+    return mysqli_real_escape_string($connection, $string);
+}
