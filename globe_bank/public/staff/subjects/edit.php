@@ -22,17 +22,15 @@ if (is_post_request()) {
         redirect_to(url_for('/staff/subjects/show.php?id=' . $id));
     } else {
         $errors = $result;
-        var_dump($errors);
         // var_dump($errors);
         // exit;
     }
 } else {
     $subject = find_subject_by_id($id); // if it is not a post request show Subjects
-
-    $subject_set = find_all_subjects();
-    $subject_count = mysqli_num_rows($subject_set);
-    mysqli_free_result($subject_set);
 }
+$subject_set = find_all_subjects();
+$subject_count = mysqli_num_rows($subject_set);
+mysqli_free_result($subject_set);
 
 ?>
 
@@ -45,6 +43,8 @@ if (is_post_request()) {
 
     <div class="subject edit">
         <h1>Edit Subject</h1>
+
+        <?php echo display_errors($errors); ?>
 
         <form action="<?php echo url_for('/staff/subjects/edit.php?id=' . h(u($id))); ?>" method="post">
             <dl>
