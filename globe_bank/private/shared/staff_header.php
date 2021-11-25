@@ -31,6 +31,6 @@ if (!isset($page_title)) {
 
     <navigation>
         <ul>
-            <li><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
+            <li><a href="<?php echo url_for('/views/index.php'); ?>">Menu</a></li>
         </ul>
     </navigation>

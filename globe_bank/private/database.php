@@ -33,7 +33,7 @@ function confirm_result_set($result_set)
     }
 }
 
-// Code to prove injection on edit + subject >>>  http://localhost/blueprint/blueprint/globe_bank/public/staff/subjects/show.php?id=%27%20OR%20%27a%27=%27a
+// Code to prove injection on edit + subject >>>  http://localhost/blueprint/blueprint/globe_bank/public/views/subjects/show.php?id=%27%20OR%20%27a%27=%27a
 // Values should be delimited by single quotes to prevent SQL injection.
 // It forces attackers to circumvent data delimeters.
 function db_escape($connection, $string)

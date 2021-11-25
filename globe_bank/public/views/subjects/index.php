@@ -1,10 +1,10 @@
-<?php require_once('../../../private/controllers/initialize.php'); ?>
+<?php require_once('../../../private/initialize.php'); ?>
 
 <?php
 
 $subject_set = find_all_subjects();
 
-// PRE FETCHING DATA FROM MYSQL
+// ARRAY PRIOR TO FETCHING DATA FROM MYSQL
 // $subjects = [
 //   ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'About Globe Bank'],
 //   ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'Consumer'],

@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../../private/controllers/initialize.php');
+require_once('../../../private/initialize.php');
 
 if (is_post_request()) {
 
