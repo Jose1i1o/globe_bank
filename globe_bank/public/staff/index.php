@@ -5,9 +5,13 @@
 <?php $page_title = 'Staff Menu'; ?>
 
 <div id="content">
-  <h2>Welcome to the GBI Staff Area</h2>
-  <p>You can use this area to make changes to the GBI website.</p>
-  <p>Please use the menu above to navigate the site.</p>
+  <div id='main-menu'>
+    <h2>Main menu</h2>
+    <ul>
+      <li><a href="<?php echo url_for('/staff/subjects/index.php'); ?>">Subjects</a></li>
+      <li><a href="<?php echo url_for('/staff/subjects/index.php'); ?>">Pages</a></li>
+    </ul>
+  </div>
 </div>
 
 <?php include(SHARED_PATH . '/staff_footer.php') ?>
